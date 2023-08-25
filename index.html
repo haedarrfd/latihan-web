@@ -124,6 +124,10 @@
         cursor: pointer;
       }
 
+      .table {
+        margin-top: 25px;
+      }
+
       .table table {
         border-collapse: collapse;
         margin: 25px 10px;
@@ -181,6 +185,7 @@
               <option value="B">B</option>
               <option value="C">C</option>
               <option value="D">D</option>
+              <option value="E">E</option>
             </select>
             <span>*</span>
           </div>
@@ -215,6 +220,7 @@
       B: 4.0,
       C: 3.0,
       D: 2.0,
+      E: 1.0,
     };
 
     const inputForm = document.getElementById("inputForm");
@@ -245,7 +251,7 @@
       // Mengembalikan value dari form mata kuliah
       mataKuliahCell.textContent = matkul;
       // Mengembalikan value dari form grade
-      gradeCell.textContent = grade;
+      gradeCell.textContent = grade || "Tidak ada nilai!";
       // Mengembalikan value dari form grade untuk rata-rata nilai
       nilaiRataRataCell.textContent = grades[grade] || "Data tidak valid!";
 

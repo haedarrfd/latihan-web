@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tugas HTML, Css dan Javascript | Haedar Roofid</title>
+    <style>
+      *,
+      html,
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        margin-top: 26px;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #e2e8f0;
+      }
+
+      button {
+        padding: 10px 16px;
+        margin-top: 20px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.6px;
+        font-size: 15px;
+        background: #1e40af;
+        color: #f0f9ff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+          rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+      }
+
+      .container {
+        background: #a5b4fc;
+        max-width: 920px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
+          rgba(0, 0, 0, 0.23) 0px 3px 6px;
+      }
+
+      .content {
+        color: #1e293b;
+        padding-top: 12px;
+        padding-bottom: 24px;
+        padding-left: 15px;
+        padding-right: 30px;
+      }
+
+      .content h2 {
+        text-transform: uppercase;
+        text-align: center;
+      }
+
+      .content .nama label,
+      .content .grade label {
+        margin-right: 13%;
+      }
+
+      .nama {
+        position: relative;
+        margin-top: 50px;
+      }
+
+      .mataKuliah {
+        position: relative;
+        margin-top: 20px;
+      }
+
+      .grade {
+        position: relative;
+        margin-top: 20px;
+      }
+
+      .nama label,
+      .mataKuliah label,
+      .grade label {
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .nama input,
+      .mataKuliah input {
+        width: 250px;
+        height: 25px;
+        padding-left: 8px;
+        padding-right: 8px;
+        border-radius: 8px;
+        outline: none;
+        border: none;
+      }
+
+      .nama span,
+      .mataKuliah span,
+      .grade span {
+        font-size: 20px;
+        color: #dc2626;
+        position: absolute;
+        top: -4px;
+        right: -15px;
+      }
+
+      .grade select {
+        width: 265px;
+        height: 28px;
+        padding-left: 8px;
+        padding-right: 8px;
+        outline: none;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+
+      .table table {
+        border-collapse: collapse;
+        margin: 25px 10px;
+        font-size: 15px;
+        min-width: 400px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+      }
+
+      .table table thead tr {
+        background-color: #166534;
+        color: #ffffff;
+        text-align: left;
+      }
+
+      .table table th,
+      .table table td {
+        padding: 12px 18px;
+      }
+
+      .table table tbody tr {
+        border-bottom: 1px solid #dddddd;
+        background: #cbd5e1;
+      }
+
+      .table table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+
+      .table table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Content -->
+      <form id="inputForm">
+        <div class="content">
+          <h2>Hitung Nilai Rata-Rata</h2>
+          <div class="nama">
+            <label for="nama">Nama :</label>
+            <input type="text" id="nama" required />
+            <span>*</span>
+          </div>
+          <div class="mataKuliah">
+            <label for="mataKuliah">Mata Kuliah :</label>
+            <input type="text" id="matkul" required />
+            <span>*</span>
+          </div>
+          <div class="grade">
+            <label for="grade">Grade : </label>
+            <select id="grade">
+              <option value="">-- Pilih Nilai --</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+            </select>
+            <span>*</span>
+          </div>
+          <button type="submit">Count</button>
+        </div>
+      </form>
+
+      <!-- Table -->
+      <div class="table">
+        <table>
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Mata Kuliah</th>
+              <th>Grade</th>
+              <th>Nilai Rata-Rata</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Ketika klik tombol count maka data akan muncul oleh Javascript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    // MENGHITUNG RATA-RATA
+    // Nilai Awal
+    const grades = {
+      A: 5.0,
+      B: 4.0,
+      C: 3.0,
+      D: 2.0,
+    };
+
+    const inputForm = document.getElementById("inputForm");
+    const tableBody = document.getElementById("tableBody");
+
+    inputForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      // Mengambil nilai/value dari form input nama
+      const nama = document.getElementById("nama").value;
+      // Mengambil nilai/value dari form input mata kuliah
+      const matkul = document.getElementById("matkul").value;
+      // Mengambil nilai/value dari form input grade
+      const grade = document.getElementById("grade").value;
+
+      // Membuat baris element untuk menampung data
+      const row = document.createElement("tr");
+      // Membuat kolom/cell untuk nama
+      const namaCell = document.createElement("td");
+      // Membuat kolom/cell untuk mata kuliah
+      const mataKuliahCell = document.createElement("td");
+      // Membuat kolom/cell untuk grade
+      const gradeCell = document.createElement("td");
+      // Membuat kolom/cell untuk nilai rata rata
+      const nilaiRataRataCell = document.createElement("td");
+
+      // Mengembalikan value dari form nama
+      namaCell.textContent = nama;
+      // Mengembalikan value dari form mata kuliah
+      mataKuliahCell.textContent = matkul;
+      // Mengembalikan value dari form grade
+      gradeCell.textContent = grade;
+      // Mengembalikan value dari form grade untuk rata-rata nilai
+      nilaiRataRataCell.textContent = grades[grade] || "Data tidak valid!";
+
+      // Mengisi value ke baris nama
+      row.appendChild(namaCell);
+      // Mengisi value ke baris mata kuliah
+      row.appendChild(mataKuliahCell);
+      // Mengisi value ke baris grade
+      row.appendChild(gradeCell);
+      // Mengisi value ke baris rata-rata nilai
+      row.appendChild(nilaiRataRataCell);
+
+      // Masukan baris yang telah diisi ke tael
+      tableBody.appendChild(row);
+    });
+  </script>
+</html>
